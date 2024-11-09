@@ -30,7 +30,7 @@ A Telegram bot that transforms school's schedule and email communication into a 
 - python-dotenv (environment management)
 
 ### Development Tools
-- uv (package management)
+- Poetry (package management)
 - pytest (testing)
 - black (code formatting)
 - ruff (linting)
@@ -158,11 +158,10 @@ Access Dramatiq UI at http://localhost:8080
 
 ## Local Development Setup
 
-1. Install uv: `pip install uv`
-2. Create virtual environment: `python -m venv .venv`
-3. Activate virtual environment
-4. Install dependencies: `uv pip install -r requirements.txt`
-5. Run the bot: `python src/main.py`
+1. Install Poetry: `curl -sSL https://install.python-poetry.org | python3 -`
+2. Install dependencies: `poetry install`
+3. Activate virtual environment: `poetry shell`
+4. Run the bot: `poetry run python src/main.py`
 
 ## Testing
 
