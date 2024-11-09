@@ -1,0 +1,24 @@
+[project]
+name = "school-parent-bot"
+version = "0.1.0"
+description = "A Telegram bot for school communication"
+requires-python = ">=3.11"
+authors = [
+    {name = "Your Name", email = "your.email@example.com"},
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+include = '\.pyi?$'
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+select = ["E", "F", "I", "N", "W", "B", "C4", "UP"]
+ignore = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-ra -q"
