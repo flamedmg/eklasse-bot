@@ -82,3 +82,34 @@ def get_settings() -> Settings:
             "Failed to load settings. Ensure all required environment "
             "variables are set or .env file exists with required values."
         ) from e
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    """Application settings loaded from environment variables."""
+    
+    # Telegram settings
+    telegram_api_id: int
+    telegram_api_hash: str
+    telegram_bot_token: str
+    
+    # School settings
+    school_website_url: str
+    school_email_server: str
+    school_email_user: str
+    school_email_password: str
+    
+    # Database settings
+    database_url: str = "sqlite:///data/school_bot.db"
+    
+    # Redis settings
+    redis_url: str = "redis://redis:6379/0"
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+    )
+
+
+settings = Settings()
