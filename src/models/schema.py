@@ -1,5 +1,6 @@
 from datetime import datetime
 from enum import Enum
+from typing import Sequence
 
 from sqlmodel import Field, Relationship, SQLModel
 
@@ -10,7 +11,9 @@ class UserRole(str, Enum):
 
 
 class User(SQLModel, table=True):
-    """User model for storing parent and student information."""
+    """
+    Store parent and student information.
+    """
 
     id: int | None = Field(default=None, primary_key=True)
     telegram_id: int = Field(index=True, unique=True)
@@ -20,13 +23,15 @@ class User(SQLModel, table=True):
     phone: str | None = None
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
-    # Relationships
-    notifications: list["Notification"] = Relationship(back_populates="user")
-    schedules: list["Schedule"] = Relationship(back_populates="user")
+    # Use immutable Sequence instead of list
+    notifications: Sequence["Notification"] = Relationship(back_populates="user")
+    schedules: Sequence["Schedule"] = Relationship(back_populates="user")
 
 
 class Schedule(SQLModel, table=True):
-    """Schedule model for storing school timetables."""
+    """
+    Store school timetable information.
+    """
 
     id: int | None = Field(default=None, primary_key=True)
     user_id: int = Field(foreign_key="user.id")
@@ -50,7 +55,9 @@ class NotificationType(str, Enum):
 
 
 class Notification(SQLModel, table=True):
-    """Notification model for tracking sent messages."""
+    """
+    Track sent messages.
+    """
 
     id: int | None = Field(default=None, primary_key=True)
     user_id: int = Field(foreign_key="user.id")
@@ -65,7 +72,9 @@ class Notification(SQLModel, table=True):
 
 
 class EmailMessage(SQLModel, table=True):
-    """Email message model for storing school communications."""
+    """
+    Store school communications.
+    """
 
     id: int | None = Field(default=None, primary_key=True)
     sender: str

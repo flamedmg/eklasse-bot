@@ -5,7 +5,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    """Application settings loaded from environment variables."""
+    """
+    Load application settings from environment variables.
+    """
 
     # Telegram settings
     telegram_api_id: int
@@ -29,5 +31,9 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings() -> Settings:
-    """Get cached settings instance."""
+    """
+    Return cached settings instance.
+    
+    :raises SettingsError: If required environment variables are missing
+    """
     return Settings()
