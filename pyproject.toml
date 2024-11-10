@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "school-parent-bot"
+name = "school-bot"
 version = "0.1.0"
 description = "A Telegram bot for school communication"
 authors = ["Your Name <your.email@example.com>"]
