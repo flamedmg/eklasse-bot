@@ -2,8 +2,6 @@ import logging
 from telethon import TelegramClient, events
 from telethon.tl.types import Message
 
-from .config import settings
-
 logger = logging.getLogger(__name__)
 
 async def start_handler(event: Message):
