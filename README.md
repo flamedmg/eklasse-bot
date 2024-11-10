@@ -23,8 +23,8 @@ A Telegram bot that transforms school's schedule and email communication into a 
 - crawl4ai (web scraping)
 - httpx (async HTTP client)
 - SQLModel (SQLAlchemy-based ORM)
-- Dramatiq (task queue with monitoring UI)
-- Redis (message broker for Dramatiq)
+- FastStream (async message broker framework) 
+- Redis (message broker for FastStream)
 - beautifulsoup4 (HTML parsing)
 - pydantic (data validation)
 - python-dotenv (environment management)
@@ -35,41 +35,6 @@ A Telegram bot that transforms school's schedule and email communication into a 
 - black (code formatting)
 - ruff (linting)
 
-## Project Structure
-```
-school-parent-bot/
-├── .env.example
-├── README.md
-├── requirements.txt
-├── pyproject.toml
-├── Dockerfile
-├── docker-compose.yml
-├── src/
-│   ├── __init__.py
-│   ├── main.py
-│   ├── config.py
-│   ├── crawlers/
-│   │   ├── __init__.py
-│   │   ├── schedule.py
-│   │   └── email.py
-│   ├── models/
-│   │   ├── __init__.py
-│   │   └── schema.py
-│   ├── services/
-│   │   ├── __init__.py
-│   │   ├── schedule.py
-│   │   └── notification.py
-│   └── utils/
-│       ├── __init__.py
-│       └── helpers.py
-├── tests/
-│   ├── __init__.py
-│   ├── test_crawlers/
-│   ├── test_services/
-│   └── conftest.py
-└── scripts/
-    └── init_db.py
-```
 
 ## Docker Setup
 
@@ -106,22 +71,6 @@ services:
     image: redis:alpine
     ports:
       - "6379:6379"
-
-  dramatiq:
-    build: .
-    command: python -m dramatiq src.tasks
-    env_file: .env
-    depends_on:
-      - redis
-
-  dramatiq-ui:
-    image: ghcr.io/dramatiq/dramatiq-ui:latest
-    environment:
-      - DRAMATIQ_BROKER_URL=redis://redis:6379/0
-    ports:
-      - "8080:8080"
-    depends_on:
-      - redis
 ```
 
 ## Environment Variables
@@ -153,8 +102,6 @@ REDIS_URL=redis://redis:6379/0
 ```bash
 docker-compose up -d
 ```
-
-Access Dramatiq UI at http://localhost:8080
 
 ## Local Development Setup
 
