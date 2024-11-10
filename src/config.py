@@ -68,4 +68,11 @@ def get_settings() -> Settings:
     :raises ValidationError: If required environment variables are missing or invalid
     :return: Settings instance
     """
-    return Settings()
+    try:
+        return Settings(_env_file='.env')  # Explicitly specify env file
+    except Exception as e:
+        # Log the error or handle it appropriately
+        raise ValueError(
+            "Failed to load settings. Ensure all required environment "
+            "variables are set or .env file exists with required values."
+        ) from e
