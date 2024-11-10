@@ -30,10 +30,10 @@ class Settings(BaseSettings):
     redis_url: RedisDsn = Field(
         default="redis://redis:6379/0", description="Redis connection URL"
     )
-    
+
     # FastStream settings
     broker_timeout: int = Field(
-        default=30, 
+        default=30,
         description="Timeout in seconds for broker operations"
     )
 
