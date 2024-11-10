@@ -6,14 +6,12 @@ from faststream import FastStream
 from faststream.redis import RedisBroker
 from telethon import TelegramClient
 
-from src.bot import setup_handlers
 from src.config import settings
 from src.database import init_db
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -22,11 +20,8 @@ broker = RedisBroker(settings.redis_url)
 app = FastStream(broker)
 
 # Initialize Telegram client
-bot = TelegramClient(
-    'school_bot',
-    settings.telegram_api_id,
-    settings.telegram_api_hash
-)
+bot = TelegramClient("school_bot", settings.telegram_api_id, settings.telegram_api_hash)
+
 
 @asynccontextmanager
 async def lifespan():
@@ -45,6 +40,7 @@ async def lifespan():
         await bot.disconnect()
         await broker.close()
         logger.info("Application shutdown complete")
+
 
 app.lifespan(lifespan)
 

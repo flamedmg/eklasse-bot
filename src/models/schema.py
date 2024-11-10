@@ -1,6 +1,6 @@
+from collections.abc import Sequence
 from datetime import datetime
 from enum import Enum
-from typing import Sequence
 
 from sqlmodel import Field, Relationship, SQLModel
 

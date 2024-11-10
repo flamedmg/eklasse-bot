@@ -13,32 +13,35 @@ A Telegram bot that transforms school's schedule and email communication into a 
 ## Technical Stack
 
 ### Core Technologies
+
 - Python 3.11+
 - SQLite (data storage)
 - Docker
 - Telethon (Telegram client library)
 
 ### Key Libraries
+
 - telethon (Telegram client)
 - crawl4ai (web scraping)
 - httpx (async HTTP client)
 - SQLModel (SQLAlchemy-based ORM)
-- FastStream (async message broker framework) 
+- FastStream (async message broker framework)
 - Redis (message broker for FastStream)
 - beautifulsoup4 (HTML parsing)
 - pydantic (data validation)
 - python-dotenv (environment management)
 
 ### Development Tools
+
 - Poetry (package management)
 - pytest (testing)
 - black (code formatting)
 - ruff (linting)
 
-
 ## Docker Setup
 
 ### Dockerfile
+
 ```dockerfile
 FROM python:3.11-slim
 
@@ -55,8 +58,9 @@ CMD ["python", "src/main.py"]
 ```
 
 ### docker-compose.yml
+
 ```yaml
-version: '3.8'
+version: "3.8"
 
 services:
   bot:
@@ -106,6 +110,7 @@ REDIS_URL=redis://redis:6379/0
 1. Clone the repository
 2. Copy `.env.example` to `.env` and fill in your credentials
 3. Run with Docker:
+
 ```bash
 docker-compose up -d
 ```
