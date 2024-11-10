@@ -66,11 +66,18 @@ services:
       - ./data:/app/data
     depends_on:
       - redis
+    restart: unless-stopped
 
   redis:
     image: redis:alpine
     ports:
       - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+volumes:
+  redis_data:
 ```
 
 ## Environment Variables
