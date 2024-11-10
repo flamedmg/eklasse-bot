@@ -30,3 +30,41 @@ async def get_session() -> AsyncGenerator[AsyncSession, None]:
         yield session
     finally:
         await session.close()
+import logging
+from typing import AsyncGenerator
+
+from sqlmodel import SQLModel
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.orm import sessionmaker
+
+from src.config import settings
+
+logger = logging.getLogger(__name__)
+
+# Create async engine
+engine = create_async_engine(
+    settings.database_url,
+    echo=False,
+    future=True
+)
+
+# Create async session factory
+async_session = sessionmaker(
+    engine,
+    class_=AsyncSession,
+    expire_on_commit=False
+)
+
+async def init_db():
+    """Initialize database tables."""
+    async with engine.begin() as conn:
+        await conn.run_sync(SQLModel.metadata.create_all)
+    logger.info("Database initialized")
+
+async def get_session() -> AsyncGenerator[AsyncSession, None]:
+    """Dependency for getting async database sessions."""
+    async with async_session() as session:
+        try:
+            yield session
+        finally:
+            await session.close()
