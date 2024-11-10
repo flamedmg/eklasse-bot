@@ -1,5 +1,5 @@
-from telethon import TelegramClient
 from faststream.redis import RedisBroker
+from telethon import TelegramClient
 
 from .config import settings
 
