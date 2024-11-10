@@ -69,7 +69,7 @@ def get_settings() -> Settings:
     :return: Settings instance
     """
     try:
-        return Settings(_env_file='.env')  # Explicitly specify env file
+        return Settings(_env_file=".env")  # Explicitly specify env file
     except Exception as e:
         # Log the error or handle it appropriately
         raise ValueError(
