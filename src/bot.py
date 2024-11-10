@@ -1,28 +1,8 @@
-from faststream.redis import RedisBroker
-from telethon import TelegramClient
-
-from .config import settings
-
-
-async def init_bot() -> TelegramClient:
-    """Initialize and start the Telegram bot client."""
-    client = TelegramClient(
-        "school_bot_session",
-        settings.telegram_api_id,
-        settings.telegram_api_hash,
-    )
-    await client.start(bot_token=settings.telegram_bot_token)
-    return client
-
-
-async def init_broker() -> RedisBroker:
-    """Initialize the Redis message broker."""
-    broker = RedisBroker(settings.redis_url)
-    await broker.connect()
-    return broker
 import logging
 from telethon import TelegramClient, events
 from telethon.tl.types import Message
+
+from .config import settings
 
 logger = logging.getLogger(__name__)
 
@@ -55,10 +35,8 @@ def setup_handlers(bot: TelegramClient):
         start_handler,
         events.NewMessage(pattern='/start')
     )
-    
     bot.add_event_handler(
         help_handler,
         events.NewMessage(pattern='/help')
     )
-    
     logger.info("Bot handlers registered")

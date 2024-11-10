@@ -6,9 +6,9 @@ from faststream import FastStream
 from faststream.redis import RedisBroker
 from telethon import TelegramClient
 
+from src.bot import setup_handlers
 from src.config import settings
 from src.database import init_db
-from src.bot import setup_handlers
 
 # Configure logging
 logging.basicConfig(
@@ -33,15 +33,11 @@ async def lifespan():
     """Startup and shutdown events for the application."""
     # Initialize database
     await init_db()
-    
     # Start Telegram client
     await bot.start(bot_token=settings.telegram_bot_token)
-    
     # Setup bot handlers
     setup_handlers(bot)
-    
     logger.info("Application startup complete")
-    
     try:
         yield
     finally:
